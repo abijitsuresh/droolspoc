@@ -1,0 +1,44 @@
+###
+POST http://localhost:8080/v1/drools/simple-response
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "name1"
+}
+
+###
+POST http://localhost:8080/v1/drools/response
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "name1"
+}
+
+###
+POST http://localhost:8080/v1/drools/response
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "name1"
+}
+
+###
+POST http://localhost:8080/v1/drools/responses
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "name1"
+}
+
+###
+POST http://localhost:8080/v1/drools/responses
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "name2"
+}
