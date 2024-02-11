@@ -21,7 +21,16 @@ repositories {
 	mavenCentral()
 }
 
+configurations.configureEach {
+	exclude(module: "commons-logging")
+	exclude(module: "spring-boot-starter-logging")
+	exclude(module: "logback-classic")
+	exclude(module: "logback-core")
+	exclude(module: "kie-util-maven-integration")
+}
+
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
@@ -31,21 +40,38 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-//	implementation 'org.kie:kie-spring:7.74.1.Final'
-//	implementation 'org.kie:kie-ci:7.74.1.Final'
-//	implementation 'org.drools:drools-decisiontables:7.74.1.Final'
-//	implementation 'org.kie:kie-ci:8.32.0.Final'
-//	implementation 'org.drools:drools-decisiontables:8.32.0.Final'
-//	implementation "org.kie:kie-spring:7.74.1.Final"
-	implementation "org.kie:kie-ci:$droolsVersion"
-	implementation "org.drools:drools-decisiontables:$droolsVersion"
-	implementation 'org.mvel:mvel2:2.5.2.Final'
-//	implementation "org.apache.poi:poi:$pioVersion"
-//	implementation "org.apache.poi:poi-ooxml:$pioVersion"
+
+	// Dependencies for drools
+	implementation platform("org.drools:drools-bom:$kieVersion")
+	implementation "org.kie:kie-ci"
+	implementation "org.drools:drools-decisiontables"
+	implementation "org.drools:drools-core"
+	implementation "org.drools:drools-compiler"
+	implementation "org.drools:drools-compiler"
+	implementation "org.drools:drools-mvel-compiler"
 	implementation 'com.google.guava:guava:33.0.0-jre'
-	implementation 'org.apache.httpcomponents:httpclient:4.5.14'
-	implementation 'org.jsoup:jsoup:1.17.2'
-	implementation 'org.apache.commons:commons-compress:1.25.0'
+	implementation 'org.mvel:mvel2:2.5.2.Final'
+//	implementation "org.kie:kie-ci:$droolsVersion"
+//	implementation "org.drools:drools-decisiontables:$droolsVersion"
+//	implementation "org.drools:drools-core:$droolsVersion"
+//	implementation "org.drools:drools-compiler:$droolsVersion"
+//	implementation 'org.optaplanner:optaplanner-core:8.32.0.Final'
+
+	// DRL
+//	implementation "org.kie:kie-spring:7.74.1.Final"
+//	implementation platform("org.drools:drools-bom:$kieVersion")
+//	implementation 'org.drools:drools-engine'
+//	implementation 'org.drools:drools-model-compiler'
+//	implementation 'org.drools:drools-decisiontables'
+//	implementation 'org.apache.poi:poi:5.2.5'
+//	implementation 'org.apache.poi:poi-ooxml:5.2.5'
+//	implementation 'org.apache.poi:poi-ooxml-lite:5.2.5'
+//	implementation 'org.apache.xmlbeans:xmlbeans:5.2.0'
+
+//	implementation "org.kie:kie-maven-plugin:$kieVersion"
+//	implementation 'commons-io:commons-io:2.15.1'
+//	implementation 'org.apache.commons:commons-compress:1.25.0'
+//	implementation 'org.apache.maven.shared:maven-shared-utils:3.4.2'
 }
 
 tasks.named('test') {
