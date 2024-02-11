@@ -1,53 +1,61 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.2'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.abijit'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '21'
+    sourceCompatibility = '21'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+configurations.configureEach {
+    exclude(module: "commons-logging")
+    exclude(module: "spring-boot-starter-logging")
+    exclude(module: "logback-classic")
+    exclude(module: "logback-core")
+    exclude(module: "kie-util-maven-integration")
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-//	implementation 'org.kie:kie-spring:7.74.1.Final'
-//	implementation 'org.kie:kie-ci:7.74.1.Final'
-//	implementation 'org.drools:drools-decisiontables:7.74.1.Final'
-//	implementation 'org.kie:kie-ci:8.32.0.Final'
-//	implementation 'org.drools:drools-decisiontables:8.32.0.Final'
-//	implementation "org.kie:kie-spring:7.74.1.Final"
-	implementation "org.kie:kie-ci:$droolsVersion"
-	implementation "org.drools:drools-decisiontables:$droolsVersion"
-	implementation 'org.mvel:mvel2:2.5.2.Final'
-//	implementation "org.apache.poi:poi:$pioVersion"
-//	implementation "org.apache.poi:poi-ooxml:$pioVersion"
-	implementation 'com.google.guava:guava:33.0.0-jre'
-	implementation 'org.apache.httpcomponents:httpclient:4.5.14'
-	implementation 'org.jsoup:jsoup:1.17.2'
-	implementation 'org.apache.commons:commons-compress:1.25.0'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+
+    // Dependencies for drools
+    implementation platform("org.drools:drools-bom:$kieVersion")
+    implementation "org.kie:kie-ci"
+    implementation "org.drools:drools-core"
+    implementation "org.drools:drools-compiler"
+    implementation "org.drools:drools-decisiontables"
+    implementation "org.drools:drools-mvel-compiler"
+    implementation 'com.google.guava:guava:33.0.0-jre'
+    implementation 'org.mvel:mvel2:2.5.2.Final'
+
+    implementation "org.apache.poi:poi:$poiVersion"
+    implementation "org.apache.poi:poi-ooxml:$poiVersion"
+    implementation "org.apache.poi:poi-ooxml-lite:$poiVersion"
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+    useJUnitPlatform()
 }
