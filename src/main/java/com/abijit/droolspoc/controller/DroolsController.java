@@ -21,21 +21,27 @@ public class DroolsController {
         this.droolsPOCService = droolsPOCService;
     }
 
-    @PostMapping("/simple-response")
+    @PostMapping("/simple-object-from-drl")
+    public ResponseEntity<Response> getSimpleResponseFromDRL(@RequestBody Request request) {
+        Response response = droolsPOCService.getSimpleResponseFromDRL(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/simple-object")
     public ResponseEntity<Response> getSimpleResponse(@RequestBody Request request) {
         Response response = droolsPOCService.getSimpleResponse(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/response")
-    public ResponseEntity<Response> getResponse(@RequestBody Request request) {
-        Response response = droolsPOCService.getResponse(request);
+    @PostMapping("/object-with-sub-object")
+    public ResponseEntity<Response> getObjectWithSubObject(@RequestBody Request request) {
+        Response response = droolsPOCService.getObjectWithSubObject(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/responses")
-    public ResponseEntity<List<Response>> getResponses(@RequestBody Request request) {
-        var responses = droolsPOCService.getResponses(request);
+    @PostMapping("/object-list")
+    public ResponseEntity<List<Response>> getObjectsList(@RequestBody Request request) {
+        var responses = droolsPOCService.getObjectsList(request);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 }
