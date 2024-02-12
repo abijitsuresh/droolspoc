@@ -10,8 +10,10 @@ class SubResponseTest {
     void testSubResponse() {
         var subResponse = new SubResponse();
         subResponse.setSubValue(0);
+        subResponse.setText("text");
 
         assertEquals(0, subResponse.getSubValue());
+        assertEquals("text", subResponse.getText());
         assertNotNull(subResponse.toString());
     }
 }
