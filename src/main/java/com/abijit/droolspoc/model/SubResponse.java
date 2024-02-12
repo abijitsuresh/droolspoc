@@ -9,4 +9,5 @@ import lombok.ToString;
 @ToString
 public class SubResponse {
     private Integer subValue;
+    private String text;
 }

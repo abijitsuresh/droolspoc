@@ -12,10 +12,4 @@ import lombok.ToString;
 public class Response {
     private Integer value;
     private SubResponse subResponse;
-
-    public void setSubResponse(int subResponseValue) {
-        var subResponse1 = new SubResponse();
-        subResponse1.setSubValue(subResponseValue);
-        this.subResponse = subResponse1;
-    }
 }

@@ -28,7 +28,7 @@ public class DroolsConfig {
         for (var path : RULES_FILES_PATH_LIST) {
             var resource = ResourceFactory.newClassPathResource(path, getClass());
             if (EXCEL_FILE_EXTENSION_LIST.stream().anyMatch(path::endsWith)) {
-                printDecisionTable(resource);
+                printDecisionTable(path, resource);
             }
             kieFileSystem.write(resource);
         }
@@ -38,11 +38,11 @@ public class DroolsConfig {
         return KIE_SERVICES.newKieContainer(kieModule.getReleaseId());
     }
 
-    private void printDecisionTable(Resource resource) {
+    private void printDecisionTable(String path, Resource resource) {
         DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
         configuration.setInputType(DecisionTableInputType.XLS);
         DecisionTableProvider decisionTableProvider = new DecisionTableProviderImpl();
         String drl = decisionTableProvider.loadFromResource(resource, configuration);
-        LOGGER.info("drl conversion from excel: \n{}", drl);
+        LOGGER.info("drl conversion of decision table in excel - {}: \n{}", path, drl);
     }
 }
